@@ -77,10 +77,13 @@ int main (int argc, char const *argv[])
 
     while ((row = mysql_fetch_row(res)) != NULL )
     {
-        cout << row[0] << " | "
+        cout << "| " 
+	<< row[0] << " | "
         << row[1] << " | "
         << row[2] << " | "
-        << row[3] << " | " << endl << endl;    
+        << row[3] << " | "
+        << row[4] << " | " 
+	<< endl << endl;    
     }
 
     mysql_free_result(res);
