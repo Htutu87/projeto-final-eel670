@@ -1,0 +1,19 @@
+ 
+// Universidade Federal do Rio de Janeiro
+// EEL670 - Linguagens de Programção
+// Prof.: Miguel Campista
+// Projeto Final
+// Autor: Artur Amaral | DRE: 119057968 | Agosto 2021
+   
+    O projeto consiste de uma simulação simples de um sistema de inscrição em
+disciplinas de uma universidade. Alunos podem fazer pedidos de inscrição nas
+matérias, e quando o sistema roda, eles são alocados segundo alguns critérios
+de prioridade. O programa é escrito em C++ e realiza a persistência dos dados
+em um banco MySQL, via a API do pacote libmysqlclient-dev.
+
+
+
+Work in progress.
+
+
+
