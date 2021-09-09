@@ -8,6 +8,7 @@ using namespace std;
 // ------------------------------------------------------------------
 // Tentar conexão com o banco de dados. Caso falhe, finaliza execução.
 // ------------------------------------------------------------------
+
 struct connection_details {
     const char *server, *user, *password, *database;
 };
@@ -65,12 +66,12 @@ int main (int argc, char const *argv[])
 
     struct connection_details mysqlDB;
     mysqlDB.server = "localhost";
-    mysqlDB.user = "artur";
-    mysqlDB.password = "EEL67O";
-    mysqlDB.database = "mydatabase";
+    mysqlDB.user = "eel670";
+    mysqlDB.password = "eel#670";
+    mysqlDB.database = "disciplinas";
 
     con = mysql_connection_setup(mysqlDB);
-    res = mysql_execute_query(con, "SELECT * FROM mydatabase;"); // Esse é o comando executado de fato no mysql. Pode ser mysql_perform_query (Pesquisar diferença).
+    res = mysql_execute_query(con, "SELECT * FROM disciplinas.arquitetura_de_computadores;"); // Esse é o comando executado de fato no mysql. Pode ser mysql_perform_query (Pesquisar diferença).
 
     cout << "Displaying database output:\n" << endl;
 
