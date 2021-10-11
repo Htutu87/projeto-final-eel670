@@ -1,7 +1,8 @@
 // Conectando C++ com MariaDB/MySQL
 
 #include <iostream>
-#include <mysql/mysql.h>    // /usr/include/mysql/mysql.h
+
+#include </usr/include/mysql/mysql.h>    // /usr/include/mysql/mysql.h
 
 using namespace std;
 
@@ -67,11 +68,11 @@ int main (int argc, char const *argv[])
     struct connection_details mysqlDB;
     mysqlDB.server = "localhost";
     mysqlDB.user = "eel670";
-    mysqlDB.password = "eel#670";
-    mysqlDB.database = "disciplinas";
+    mysqlDB.password = "eel670";
+    mysqlDB.database = "siga";
 
     con = mysql_connection_setup(mysqlDB);
-    res = mysql_execute_query(con, "SELECT * FROM disciplinas.arquitetura_de_computadores;"); // Esse é o comando executado de fato no mysql. Pode ser mysql_perform_query (Pesquisar diferença).
+    res = mysql_execute_query(con, "SELECT * FROM siga.calculoI;"); // Esse é o comando executado de fato no mysql. Pode ser mysql_perform_query (Pesquisar diferença).
 
     cout << "Displaying database output:\n" << endl;
 
