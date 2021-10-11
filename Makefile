@@ -5,12 +5,16 @@
 # Autor: Artur Amaral | DRE: 119057968 | Agosto 2021
 
 CC = g++
-CFLAGS = -Wall -std=c++11
+CFLAGS = -Wall -std=c++11\
+		 -L/usr/include/mysql -lmysqlclient
 
 OBJDIR = obj
 SRCDIR = src
 
-OBJS = $(OBJDIR)/main.o
+OBJS = $(OBJDIR)/main.o\
+	   	$(OBJDIR)/siga.o\
+	   	$(OBJDIR)/disciplina.o\
+		$(OBJDIR)/aluno.o
 
 EXEC = bin/siga_app
 

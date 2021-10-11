@@ -4,7 +4,9 @@
 // Projeto final
 // Autor: Artur Amaral | DRE: 119057968 | Outubro 2021
 
-#include "../include/deps.h"
+#include "../include/siga.h"
+
+ostream & operator<<(ostream &, Aluno);
 
 inline void printarMenu()
 {
@@ -59,6 +61,27 @@ int main()
 	bool executarPrograma = true;
 	string opStr;
 	int opInt;
+	SIGA siga;
+
+	Aluno a1("Artur", "Amaral", "119057968", ENG_ELETRONICA, 6.2, 5);
+	Aluno a2("Bruno", "Ramos", "119057968", ENG_ELETRONICA, 6.2, 5);
+	Aluno a3("Gabriel", "Peroba", "119057968", ENG_AUTOMACAO, 6.2, 5);
+	Aluno a4("Carlos", "Eduardo", "119057968", ENG_ELETRICA, 6.2, 5);
+	Aluno a5("Breno", "Miranda", "119057968", ENG_COMPUTACAO, 6.2, 5);
+
+	siga.registrarAluno(a1);
+	siga.registrarAluno(a2);
+	siga.registrarAluno(a3);
+	siga.registrarAluno(a4);
+	siga.registrarAluno(a5);
+	
+
+	Disciplina d1("Arquitetura de computadores", "EEL570", ENG_ELETRONICA, 5, 45);
+
+	cout << d1;
+
+	//siga.listarAlunos();
+
 
 	cout << "\n==============================" << endl;	
 	cout << "========== SIGA APP ==========" << endl;	
@@ -75,25 +98,36 @@ int main()
 		switch(opInt)
 		{
 			case 1:
-				cout << "1" << endl;
+				siga.listarAlunos();
+				pressEnter();
 				break;
 			case 2:
 				cout << "2" << endl;
+				pressEnter();
 				break;
 			case 3:
 				cout << "3" << endl;
+				pressEnter();
 				break;
 			case 4:
 				cout << "4" << endl;
+				pressEnter();
 				break;
 			case 5:
 				cout << "5" << endl;
+				pressEnter();
 				break;
 			case 6:
 				cout << "6" << endl;
+				pressEnter();
 				break;
 			case 0:
 				executarPrograma = false;
+				break;
+			default:
+				cout << "Esta entrada nao representa uma operacao." << endl;
+				cout << "Tente novamente." << endl;
+				pressEnter();
 				break;
 		}
 	}
