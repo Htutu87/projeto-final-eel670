@@ -73,14 +73,18 @@ int main()
 	siga.registrarAluno(a2);
 	siga.registrarAluno(a3);
 	siga.registrarAluno(a4);
-	siga.registrarAluno(a5);
-	
+	siga.registrarAluno(a5);	
 
 	Disciplina d1("Arquitetura de computadores", "EEL570", ENG_ELETRONICA, 5, 45);
+	Disciplina d2("Algoritmos e estruturas de dados", "EEL480", ENG_COMPUTACAO, 5, 45);
+	Disciplina d3("Circuitos Eletricos I", "EEL440", ENG_ELETRICA, 5, 45);
+	Disciplina d4("Controle Linear I", "EEL570", ENG_AUTOMACAO, 5, 45);
 
-	cout << d1;
+	siga.registrarDisciplina(d1);
+	siga.registrarDisciplina(d2);
+	siga.registrarDisciplina(d3);
+	siga.registrarDisciplina(d4);
 
-	//siga.listarAlunos();
 
 
 	cout << "\n==============================" << endl;	
@@ -102,7 +106,7 @@ int main()
 				pressEnter();
 				break;
 			case 2:
-				cout << "2" << endl;
+				siga.listarDisciplinas();
 				pressEnter();
 				break;
 			case 3:

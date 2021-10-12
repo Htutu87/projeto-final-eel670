@@ -13,8 +13,8 @@ ostream & operator<<(ostream & _cout, Disciplina _d)
 	_cout << setw(35) << _d.getNome()
 	   	<< setw(8) << _d.getCodigo()
 		<< setw(20) << _d.getCurso()
-		<< setw(6) << _d.getPeriodo()
-		<< setw(6) << _d.getNumVagas() << endl;
+		<< setw(10) << _d.getPeriodo()
+		<< setw(10) << _d.getNumVagas() << endl;
 	return _cout;
 }
 

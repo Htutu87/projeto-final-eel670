@@ -31,6 +31,12 @@ void SIGA::listarAlunos()
 
 void SIGA::listarDisciplinas()
 {
+	cout << setw(35) << "NOME"
+	   	<< setw(8) << "CODIGO"
+		<< setw(20) << "CURSO"
+		<< setw(10) << "PERIODO"
+	   	<< setw(10) << "VAGAS" << endl;
+
 	for (Disciplina disciplina:disciplinas)
 	{
 		cout << disciplina;
