@@ -62,6 +62,11 @@ int main()
 	string opStr;
 	int opInt;
 	SIGA siga;
+	curso_t c;
+	float CRAfloat;
+	unsigned short periodoInt;
+
+	string nome, sobrenome, DRE, curso, CRA, periodo;
 
 	Aluno a1("Artur", "Amaral", "119057968", ENG_ELETRONICA, 6.2, 5);
 	Aluno a2("Bruno", "Ramos", "119057968", ENG_ELETRONICA, 6.2, 5);
@@ -110,12 +115,141 @@ int main()
 				pressEnter();
 				break;
 			case 3:
-				cout << "3" << endl;
+			{
+				// REGISTRAR ALUNO
+				cout << "Insira os dados do aluno para registra-lo:"<< endl;
+				cout << "Nome: ";
+				getline(cin, nome);	
+
+				if (nome.size() > MAX_COMPRIMENTO_NOME)
+				{
+					cout << "Comprimento do nome maior que o maximo permitido." << endl;
+					pressEnter();
+					break;
+				}
+
+				cout << "Sobrenome: ";	
+				getline(cin, sobrenome);	
+				
+				if (sobrenome.size() > MAX_COMPRIMENTO_NOME)
+				{
+					cout << "Comprimento do sobrenome maior que o maximo permitido." << endl;
+					pressEnter();
+					break;	
+				}
+
+				cout << "DRE: ";	
+				getline(cin, DRE);
+
+				if (DRE.size() != COMPRIMENTO_DRE)
+				{
+					cout << "Comprimento do DRE invalido (correto: "<< COMPRIMENTO_DRE << ")." << endl;
+					pressEnter();
+					break;
+				}
+
+				cout << "Curso: " << endl;
+
+				cout << "[0] ENGENHARIA ELETRICA" << endl;
+				cout << "[1] ENGENHARIA ELETRONICA" << endl;
+				cout << "[2] ENGENHARIA AUTOMACAO" << endl;
+				cout << "[3] ENGENHARIA COMPUTACAO" << endl;
+				
+				cout << ">> ";
+				getline(cin, curso);
+				try
+				{
+					unsigned cursoInt;
+					cursoInt = stoi(curso);
+					if (cursoInt > NUM_CURSOS-1)
+					{
+						cout << "Entrada invalida." << endl;
+					   	pressEnter();
+						break;	
+					}
+
+					switch(cursoInt)
+					{
+						case 0:
+							c = ENG_ELETRICA;
+							break;
+						case 1:
+							c = ENG_ELETRONICA; 
+							break;
+						case 2:
+							c = ENG_AUTOMACAO; 
+							break;
+						case 3:
+							c = ENG_COMPUTACAO; 
+							break;
+					}
+
+				}
+				catch (const invalid_argument& ia)
+				{
+					cout << "Argumento invalido." << endl;
+					cout << "what(): " << ia.what() << endl;
+					pressEnter();
+					break;
+				}
+
+				cout << "CRA: ";
+				getline(cin, CRA);
+
+				try
+				{
+					CRAfloat = stof(CRA);
+					if (CRAfloat > 10.0 || CRAfloat < 0.0)
+					{
+						cout << "Entrada invalida." << endl;
+					   	pressEnter();
+						break;	
+					}
+						
+				}		
+				catch (const invalid_argument& ia)
+				{
+					cout << "Argumento invalido." << endl;
+					cout << "what(): " << ia.what() << endl;
+					pressEnter();
+					break;
+				}
+	
+				cout << "Periodo: ";	
+				getline(cin, periodo);	
+				
+				try
+				{
+					periodoInt = stoi(periodo);
+					if (periodoInt > NUM_PERIODOS_GRADUACAO)
+					{
+						cout << "Entrada invalida." << endl;
+					   	pressEnter();
+						break;	
+					}
+				}
+				catch (const invalid_argument& ia)
+				{
+					cout << "Argumento invalido." << endl;
+					cout << "what(): " << ia.what() << endl;
+					pressEnter();
+					break;
+				}
+
+				Aluno a(nome, sobrenome, DRE, c, CRAfloat, periodoInt);
+				siga.registrarAluno(a);
 				pressEnter();
+		}
 				break;
+
 			case 4:
-				cout << "4" << endl;
+			{
+				//REGISTRAR DISCIPLINA
+
+
+
 				pressEnter();
+			}
 				break;
 			case 5:
 				cout << "5" << endl;
