@@ -64,9 +64,9 @@ int main()
 	SIGA siga;
 	curso_t c;
 	float CRAfloat;
-	unsigned short periodoInt;
+	unsigned short periodoInt, numVagasInt;
 
-	string nome, sobrenome, DRE, curso, CRA, periodo;
+	string nome, sobrenome, DRE, curso, CRA, periodo, codigo, numVagas;
 
 	Aluno a1("Artur", "Amaral", "119057968", ENG_ELETRONICA, 6.2, 5);
 	Aluno a2("Bruno", "Ramos", "119057968", ENG_ELETRONICA, 6.2, 5);
@@ -245,8 +245,117 @@ int main()
 			case 4:
 			{
 				//REGISTRAR DISCIPLINA
+				
 
+				cout << "Insira os dados da disciplina para registra-la:"<< endl;
+				cout << "Nome: ";
+				getline(cin, nome);	
 
+				if (nome.size() > MAX_COMPRIMENTO_DISCIPLINA)
+				{
+					cout << "Comprimento do nome maior que o maximo permitido." << endl;
+					pressEnter();
+					break;
+				}
+
+				cout << "Codigo: ";	
+				getline(cin, codigo);
+
+				if (codigo.size() != COMPRIMENTO_CODIGO_DISCIPLINA)
+				{
+					cout << "Comprimento do codigo invalido (correto: "<< COMPRIMENTO_CODIGO_DISCIPLINA << ")." << endl;
+					pressEnter();
+					break;
+				}
+
+				cout << "Curso: " << endl;
+
+				cout << "[0] ENGENHARIA ELETRICA" << endl;
+				cout << "[1] ENGENHARIA ELETRONICA" << endl;
+				cout << "[2] ENGENHARIA AUTOMACAO" << endl;
+				cout << "[3] ENGENHARIA COMPUTACAO" << endl;
+				
+				cout << ">> ";
+				getline(cin, curso);
+				try
+				{
+					unsigned cursoInt;
+					cursoInt = stoi(curso);
+					if (cursoInt > NUM_CURSOS-1)
+					{
+						cout << "Entrada invalida." << endl;
+					   	pressEnter();
+						break;	
+					}
+
+					switch(cursoInt)
+					{
+						case 0:
+							c = ENG_ELETRICA;
+							break;
+						case 1:
+							c = ENG_ELETRONICA; 
+							break;
+						case 2:
+							c = ENG_AUTOMACAO; 
+							break;
+						case 3:
+							c = ENG_COMPUTACAO; 
+							break;
+					}
+				}
+				catch (const invalid_argument& ia)
+				{
+					cout << "Argumento invalido." << endl;
+					cout << "what(): " << ia.what() << endl;
+					pressEnter();
+					break;
+				}
+	
+				cout << "Periodo: ";	
+				getline(cin, periodo);	
+				
+				try
+				{
+					periodoInt = stoi(periodo);
+					if (periodoInt > NUM_PERIODOS_GRADUACAO)
+					{
+						cout << "Entrada invalida." << endl;
+					   	pressEnter();
+						break;	
+					}
+				}
+				catch (const invalid_argument& ia)
+				{
+					cout << "Argumento invalido." << endl;
+					cout << "what(): " << ia.what() << endl;
+					pressEnter();
+					break;
+				}
+
+				cout << "Numero de vagas: ";
+				getline(cin, numVagas);
+
+				try
+				{
+					numVagasInt = stoi(numVagas);
+					if (numVagasInt > MAX_NUM_VAGAS || numVagasInt < MIN_NUM_VAGAS)
+					{
+						cout << "Entrada invalida." << endl;
+					   	pressEnter();
+						break;	
+					}
+				}
+				catch (const invalid_argument& ia)
+				{
+					cout << "Argumento invalido." << endl;
+					cout << "what(): " << ia.what() << endl;
+					pressEnter();
+					break;
+				}
+	
+				Disciplina d(nome, codigo, c, periodoInt, numVagasInt);
+				siga.registrarDisciplina(d);
 
 				pressEnter();
 			}
