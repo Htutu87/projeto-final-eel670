@@ -65,6 +65,7 @@ int main()
 	curso_t c;
 	float CRAfloat;
 	unsigned short periodoInt, numVagasInt;
+	pedido_t pedidoDeInscricao;
 
 	string nome, sobrenome, DRE, curso, CRA, periodo, codigo, numVagas;
 
@@ -361,7 +362,58 @@ int main()
 			}
 				break;
 			case 5:
+
 				cout << "5" << endl;
+	
+				cout << "PEDIDO DE INSCRICAO EM DISCIPLINA: " << endl;	
+
+				cout << "DRE do solicitante: ";
+				getline(cin, DRE);
+
+				if (DRE.size() != COMPRIMENTO_DRE)
+				{
+					cout << "Comprimento do DRE invalido (correto: "<< COMPRIMENTO_DRE << ")." << endl;
+					pressEnter();
+					break;
+				}
+
+
+				if ( !(DRE.find_first_not_of("0123456789") == string::npos))
+				{
+					cout << "DRE contem caracteres nao numericos. " << endl;
+					pressEnter();
+					break;
+				}
+
+				if (!siga.alunoExistePorDRE(DRE))
+				{
+					cout << "Este DRE nao existe no sistema." << endl;	
+				} 
+
+				// Validacoes:
+				// DRE contem apenas caracteres numericos;
+				// DRE existe no siga
+
+				cout << "Codigo da disciplina almejada: ";
+				getline(cin, codigo);
+
+				if (codigo.size() != COMPRIMENTO_CODIGO_DISCIPLINA)
+				{
+					cout << "Comprimento do codigo invalido (correto: "<< COMPRIMENTO_CODIGO_DISCIPLINA << ")." << endl;
+					pressEnter();
+					break;
+				}
+	
+				if (!siga.disciplinaExistePorCodigo(codigo))
+				{
+					cout << "Este codigo de disciplina nao existe no sistema." << endl;	
+				} 
+
+				pedidoDeInscricao.DRE = DRE;
+				pedidoDeInscricao.codigoDisciplina = codigo;
+
+				siga.registrarPedido(pedidoDeInscricao);
+
 				pressEnter();
 				break;
 			case 6:

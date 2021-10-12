@@ -16,11 +16,15 @@ class SIGA {
 		void listarAlunos();
 		void listarDisciplinas();
 		void registrarAluno(Aluno);
-		void registrarDisciplina(Disciplina);
-		
+		void registrarDisciplina(Disciplina);	
+		void registrarPedido(pedido_t);
+		bool alunoExistePorDRE(string);
+		bool disciplinaExistePorCodigo(string);	
+
 	private:
 		vector <Aluno> alunos;
 		vector <Disciplina> disciplinas;
+		vector <pedido_t> pedidosPendentes;
 };
 
 #endif

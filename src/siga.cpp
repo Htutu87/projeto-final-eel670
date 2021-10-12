@@ -6,11 +6,7 @@
 
 #include "../include/siga.h"
 
-SIGA::SIGA()
-{
-
-
-}
+SIGA::SIGA(){}
 
 // Esse método pode ser uma Query no banco de dados.
 
@@ -51,5 +47,35 @@ void SIGA::registrarAluno(Aluno _a)
 void SIGA::registrarDisciplina(Disciplina _d)
 {
 	disciplinas.push_back(_d);
+}
+
+void SIGA::registrarPedido(pedido_t _p)
+{
+	pedidosPendentes.push_back(_p);
+}
+
+
+bool SIGA::alunoExistePorDRE(string _DRE)
+{
+	// Essa funcao assume que o DRE recebido ja foi validado.
+	bool alunoExiste = false;
+
+	for (Aluno aluno:alunos)
+		if (aluno.getDRE() == _DRE)
+			alunoExiste = true;
+	
+	return alunoExiste;
+}
+
+bool SIGA::disciplinaExistePorCodigo(string _codigo)
+{
+	// Essa funcao assume que o DRE recebido ja foi validado.
+	bool disciplinaExiste = false;
+
+	for (Disciplina disciplina:disciplinas)
+		if (disciplina.getCodigo() == _codigo)
+			disciplinaExiste = true;
+	
+	return disciplinaExiste;
 }
 

@@ -25,7 +25,10 @@
 
 using namespace std;
 
-typedef struct pedido pedido_t;
+typedef struct pedido {
+	string DRE;
+	string codigoDisciplina;
+} pedido_t;
 
 typedef enum enum_curso{
 	ENG_ELETRICA,
