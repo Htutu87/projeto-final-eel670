@@ -6,6 +6,10 @@
 
 #include "../include/aluno.h" 
 
+//----------------------------------------
+// Sobrecarga de operadores globais
+//----------------------------------------
+
 ostream & operator<<(ostream & _cout, curso_t _c)
 {
 	switch(_c)
@@ -37,7 +41,6 @@ ostream & operator<<(ostream & _cout, Aluno _a)
 		<< setw(6) << _a.getPeriodo() << endl;
 	return _cout;
 }
-
 
 Aluno::Aluno(string _nome, string _sobrenome, string _DRE,
 	   		curso_t _curso, float _CRA, unsigned short _periodo)

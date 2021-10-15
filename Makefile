@@ -6,7 +6,8 @@
 
 CC = g++
 CFLAGS = -Wall -std=c++11\
-		 -L/usr/include/mysql -lmysqlclient
+		 -L/usr/include/mysql -lmysqlclient\
+		 -D_DEBUG_
 
 OBJDIR = obj
 SRCDIR = src

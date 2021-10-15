@@ -15,8 +15,8 @@ class SIGA {
 		SIGA();
 		void listarAlunos();
 		void listarDisciplinas();
-		void registrarAluno(Aluno);
-		void registrarDisciplina(Disciplina);	
+		void registrarAluno();
+		void registrarDisciplina();	
 		void registrarPedido(pedido_t);
 		bool alunoExistePorDRE(string);
 		bool disciplinaExistePorCodigo(string);	
