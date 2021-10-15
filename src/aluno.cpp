@@ -38,6 +38,7 @@ ostream & operator<<(ostream & _cout, Aluno _a)
 	return _cout;
 }
 
+Aluno::Aluno(){}
 
 Aluno::Aluno(string _nome, string _sobrenome, string _DRE,
 	   		curso_t _curso, float _CRA, unsigned short _periodo)

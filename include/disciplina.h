@@ -12,13 +12,16 @@
 class Disciplina {
 	
 	public:
+		Disciplina();
 		Disciplina(string, string, curso_t, unsigned short, unsigned short);
 		string getNome();
 		string getCodigo();
 		curso_t getCurso();
 		unsigned short getPeriodo();
 		unsigned short getNumVagas();
-
+		vector <Aluno> & getAlunosInscritos();
+		void inscreverAluno(Aluno);
+	
 	private:
 		string nome;
 		string codigo;

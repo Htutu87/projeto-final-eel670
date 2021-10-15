@@ -6,7 +6,7 @@
 
 CC = g++
 CFLAGS = -Wall -std=c++11\
-		 -L/usr/include/mysql -lmysqlclient
+		 -I/usr/include/mysql -lmysqlclient
 
 OBJDIR = obj
 SRCDIR = src
@@ -22,7 +22,7 @@ $(OBJDIR)/%.o: $(SRCDIR)/%.cpp
 	$(CC) $(CFLAGS) -c $< -o $@
 
 siga: $(OBJS)
-	$(CC) $(CFLAGS) $(OBJS) -o $(EXEC)
+	$(CC) $(OBJS) $(CFLAGS) -o $(EXEC)
 	
 .PHONY: clean clean-objs
 

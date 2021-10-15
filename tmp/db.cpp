@@ -30,9 +30,6 @@ MYSQL* mysql_connection_setup(struct connection_details mysql_details)
 
     return connection;
 }
-// ------------------------------------------------------------
-
-// ------------------------------------------------------------
 
 MYSQL_RES* mysql_execute_query(MYSQL *connection, const char *sql_query)
 {
@@ -47,12 +44,7 @@ MYSQL_RES* mysql_execute_query(MYSQL *connection, const char *sql_query)
 }
 
 
-
-
-
 // ------------------------------------------------------------
-
-
 
 
 

@@ -6,8 +6,6 @@
 
 #include "../include/siga.h"
 
-ostream & operator<<(ostream &, Aluno);
-
 inline void printarMenu()
 {
 	cout << "--------------------------------------" << endl;
@@ -68,6 +66,7 @@ int main()
 	pedido_t pedidoDeInscricao;
 
 	string nome, sobrenome, DRE, curso, CRA, periodo, codigo, numVagas;
+
 
 	Aluno a1("Artur", "Amaral", "119057968", ENG_ELETRONICA, 6.2, 5);
 	Aluno a2("Bruno", "Ramos", "119057968", ENG_ELETRONICA, 6.2, 5);
@@ -240,7 +239,7 @@ int main()
 				Aluno a(nome, sobrenome, DRE, c, CRAfloat, periodoInt);
 				siga.registrarAluno(a);
 				pressEnter();
-		}
+			}
 				break;
 
 			case 4:
@@ -414,10 +413,14 @@ int main()
 
 				siga.registrarPedido(pedidoDeInscricao);
 
+				cout << "Pedido registrado com sucesso." << endl;
+
 				pressEnter();
 				break;
 			case 6:
 				cout << "6" << endl;
+
+				siga.processarPedidos();
 				pressEnter();
 				break;
 			case 0:
