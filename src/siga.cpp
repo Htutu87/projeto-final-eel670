@@ -4,6 +4,12 @@
 // Projeto final
 // Autor: Artur Amaral | DRE: 119057968 | Agosto 2021
 
+// OBS:
+// Ao fim dos métodos de registro, eu passo o objeto em sim como argumento para o push_back.
+// Provavelmente o que é adicionado ao vetor membro é uma cópia do objeto criado aqui. 
+// Tem problema? Ele só será acessado, de qualquer forma. Se der ruim, alterar para passar
+// o endereço de memória (Ao fim das 3 funções de registro - aluno, disciplina, pedido).
+
 #include "../include/siga.h"
 
 SIGA::SIGA()
@@ -31,8 +37,6 @@ SIGA::SIGA()
 	disciplinas.push_back(d4);
 	#endif
 }
-
-// Esse método pode ser uma Query no banco de dados.
 
 void SIGA::listarAlunos()
 {
@@ -318,9 +322,69 @@ void SIGA::registrarDisciplina()
 	disciplinas.push_back(d);
 }
 
-void SIGA::registrarPedido(pedido_t _p)
+void SIGA::registrarPedido()
 {
-	pedidosPendentes.push_back(_p);
+	string DRE, codigo;
+	pedido_t pedidoDeInscricao;
+
+	cout << "PEDIDO DE INSCRICAO EM DISCIPLINA: " << endl;	
+
+	cout << "DRE do solicitante: ";
+	getline(cin, DRE);
+
+	if (DRE.size() != COMPRIMENTO_DRE)
+	{
+		cout << "Comprimento do DRE invalido (correto: "<< COMPRIMENTO_DRE << ")." << endl;
+		return;
+	}
+
+
+	if ( !(DRE.find_first_not_of("0123456789") == string::npos))
+	{
+		cout << "DRE contem caracteres nao numericos. " << endl;
+		return;
+	}
+
+	if (!alunoExistePorDRE(DRE))
+	{
+		cout << "Este DRE nao existe no sistema." << endl;
+		return;
+	} 
+
+	if (DRE.size() != COMPRIMENTO_DRE)
+	{
+		cout << "Comprimento do DRE invalido (correto: "<< COMPRIMENTO_DRE << ")." << endl;
+		return;
+	}
+	else 
+	{
+		if ( !(DRE.find_first_not_of("0123456789") == string::npos))
+		{
+			cout << "DRE contem caracteres nao numericos. " << endl;
+			return;
+		}
+	}
+
+
+	cout << "Codigo da disciplina almejada: ";
+	getline(cin, codigo);
+
+	if (codigo.size() != COMPRIMENTO_CODIGO_DISCIPLINA)
+	{
+		cout << "Comprimento do codigo invalido (correto: "<< COMPRIMENTO_CODIGO_DISCIPLINA << ")." << endl;
+		return;
+	}
+
+	if (!disciplinaExistePorCodigo(codigo))
+	{
+		cout << "Este codigo de disciplina nao existe no sistema." << endl;	
+		return;
+	} 
+
+	pedidoDeInscricao.DRE = DRE;
+	pedidoDeInscricao.codigoDisciplina = codigo;
+
+	pedidosPendentes.push_back(pedidoDeInscricao);
 }
 
 bool SIGA::alunoExistePorDRE(string _DRE)
@@ -347,3 +411,20 @@ bool SIGA::disciplinaExistePorCodigo(string _codigo)
 	return disciplinaExiste;
 }
 
+// Método para fins de depuração
+void SIGA::printarDados()
+{
+	cout << "ALUNOS REGISTRADOS: " << endl;
+	for (Aluno aluno:alunos)
+		cout << aluno;
+	cout << "DISCIPLINAS REGISTRADAS: " << endl;
+	for (Disciplina disciplina:disciplinas)
+		cout << disciplina;
+	cout << "PEDIDOS DE INSCRICAO: " << endl;
+	for (pedido_t pedido:pedidosPendentes)
+	{
+		cout << "\tDRE " << pedido.DRE << " pediu disciplina " 
+		<< pedido.codigoDisciplina << endl;
+	}
+	
+}
