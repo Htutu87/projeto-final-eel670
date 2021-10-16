@@ -11,6 +11,41 @@
 // o endereço de memória (Ao fim das 3 funções de registro - aluno, disciplina, pedido).
 
 #include "../include/siga.h"
+#include <mysql/mysql.h>
+
+struct connection_details {
+    const char *server, *user, *password, *database;
+};
+
+MYSQL* mysql_connection_setup(struct connection_details mysql_details)
+{
+    MYSQL *connection = mysql_init(NULL);
+
+    if (!mysql_real_connect (connection, mysql_details.server,
+                                            mysql_details.user,
+                                            mysql_details.password,
+                                            mysql_details.database, 0, NULL, 0 ) )
+    {
+        /*Se a conexão com a base de dados falhar, este trecho será executado.*/
+        cout << "Connection error: " << mysql_error(connection) << endl;
+        exit (1);
+    }
+
+    return connection;
+}
+
+MYSQL_RES* mysql_execute_query(MYSQL *connection, const char *sql_query)
+{
+    if (mysql_query (connection, sql_query) )
+    {
+        /*Se um erro ocorrer durante a query...*/
+        cout << "MySQL query error: " << mysql_error(connection) << endl;
+        exit(1);
+    } 
+
+    return mysql_use_result(connection);
+}
+
 
 SIGA::SIGA()
 {
@@ -442,40 +477,6 @@ void SIGA::printarDados()
 	cout << "----------------------------------------------------------" << endl;
 }
 
-
-void SIGA::recebeDreDevolveAluno(string _DRE, Aluno & alunoRef)
-{
-	for (unsigned i=0; i < alunos.size(); i++)
-	{
-		if(alunos[i].getDRE() == _DRE)
-		{
-			alunoRef = alunos[i];
-			cout << "[DEBUG] Aluno encontrado por DRE (i =" << i << ")." << endl;
-		}
-	}
-}
-
-/*
-void SIGA::recebeCodigoDevolveDisciplina(string _codigo, Disciplina & disciplinaRef)
-{
-	for (unsigned i=0; i < disciplinas.size(); i++)
-	{
-		if(disciplinas[i].getCodigo() == _codigo)
-		{
-			Aluno a = Aluno();
-			Aluno & aRef = a;
-
-			disciplinaRef = disciplinas[i];
-			disciplinaRef.inscreverAluno(aRef);
-			cout << "[DEBUG] &disciplina (funcaoInterna()): ";
-			cout << &disciplinas[i] << endl;
-			cout << disciplinas[i];
-			cout << "[DEBUG] Disciplina encontrada por codigo." << endl;
-		}
-	}
-	cout << "[D] DEBUG" << endl;
-}*/
-
 void SIGA::processarPedidos()
 {
 	cout << "---\nPROCESSANDO PEDIDOS:" << endl;
@@ -511,14 +512,49 @@ void SIGA::carregarDados()
 
 void SIGA::salvarDados()
 {
+
+	MYSQL *con;
+    MYSQL_RES *res;
+    //MYSQL_ROW row;
+
+    struct connection_details mysqlDB;
+    mysqlDB.server = "localhost";
+    mysqlDB.user = "eel670";
+    mysqlDB.password = "eel670";
+    mysqlDB.database = "siga";
+
+    con = mysql_connection_setup(mysqlDB);
+
 	cout << "---\n[SALVANDO DADOS]" << endl;
 	for (Disciplina disciplina:disciplinas)
 	{
-		cout << disciplina.getNome() << endl;
 		for (Aluno aluno:disciplina.alunosInscritos)
 		{
-			cout << "\t" << aluno.getNome() << endl;
+			string myQuery;
+
+			myQuery = "INSERT INTO siga." + disciplina.getCodigo() + " VALUES (";
+
+			myQuery.append("\"");
+			myQuery.append(aluno.getNome());
+			myQuery.append("\", ");
+			myQuery.append("\"");
+			myQuery.append(aluno.getSobrenome());
+			myQuery.append("\", ");
+			myQuery.append("\"");
+			myQuery.append(aluno.getDRE());
+			myQuery.append("\", ");
+			myQuery.append(to_string(aluno.getCurso()));
+			myQuery.append(", ");
+			myQuery.append(to_string(aluno.getCRA()));
+			myQuery.append(", ");
+			myQuery.append(to_string(aluno.getPeriodo()));
+			myQuery.append(");");
+
+			cout << "EXEC_QUERY: " << myQuery << endl;
+			res = mysql_execute_query(con, myQuery.c_str());
 		}
 	}
 	cout << "---" << endl;
+	mysql_free_result(res);
+    mysql_close(con);
 }

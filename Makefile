@@ -5,9 +5,9 @@
 # Autor: Artur Amaral | DRE: 119057968 | Agosto 2021
 
 CC = g++
-CFLAGS = -Wall -std=c++11 -g\
-		 -L/usr/include/mysql -lmysqlclient\
-		 -D_DEBUG_
+CFLAGS = -Wall -std=c++11 -D_DEBUG_
+
+LIBS = -L/usr/include/mysql -lmysqlclient
 
 OBJDIR = obj
 SRCDIR = src
@@ -23,7 +23,7 @@ $(OBJDIR)/%.o: $(SRCDIR)/%.cpp
 	$(CC) $(CFLAGS) -c $< -o $@
 
 siga: $(OBJS)
-	$(CC) $(CFLAGS) $(OBJS) -o $(EXEC)
+	$(CC) $(CFLAGS) $(OBJS) -o $(EXEC) $(LIBS)
 	
 .PHONY: clean clean-objs
 
