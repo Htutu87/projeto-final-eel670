@@ -12,26 +12,16 @@
 class Disciplina {
 	
 	public:
-<<<<<<< HEAD
-		Disciplina();
-=======
 		Disciplina() = default;
->>>>>>> dev
 		Disciplina(string, string, curso_t, unsigned short, unsigned short);
 		string getNome();
 		string getCodigo();
 		curso_t getCurso();
 		unsigned short getPeriodo();
 		unsigned short getNumVagas();
-<<<<<<< HEAD
-		vector <Aluno> & getAlunosInscritos();
-		void inscreverAluno(Aluno);
-	
-=======
 		void inscreverAluno(Aluno &);
 		vector <Aluno > alunosInscritos;
 
->>>>>>> dev
 	private:
 		string nome;
 		string codigo;

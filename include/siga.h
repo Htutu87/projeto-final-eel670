@@ -7,8 +7,7 @@
 #ifndef SIGA_H
 #define SIGA_H
 
-#include "disciplina.h"
-#include <mysql.h>
+#include "disciplina.h" 
 
 class SIGA {
 
@@ -17,21 +16,6 @@ class SIGA {
 		~SIGA();
 		void listarAlunos();
 		void listarDisciplinas();
-<<<<<<< HEAD
-		void registrarAluno(Aluno);
-		void registrarDisciplina(Disciplina);	
-		void registrarPedido(pedido_t);
-		bool alunoExistePorDRE(string);
-		bool disciplinaExistePorCodigo(string);	
-		void carregarDados();
-		void processarPedidos();
-		void salvarDados();
-
-	private:
-		void recebeDreRetornaAluno(string, Aluno*);
-		void recebeCodigoRetornaDisciplina(string, Disciplina*);
-		
-=======
 		void registrarAluno();
 		void registrarDisciplina();	
 		void registrarPedido();	
@@ -46,7 +30,6 @@ class SIGA {
 		void recebeDreDevolveAluno(string, Aluno &);
 		void recebeCodigoDevolveDisciplina(string, Disciplina &);
 
->>>>>>> dev
 		vector <Aluno> alunos;
 		vector <Disciplina> disciplinas;
 		vector <pedido_t> pedidosPendentes;
