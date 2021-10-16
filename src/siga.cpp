@@ -33,7 +33,7 @@ SIGA::SIGA()
 	disciplinas.push_back(d2);
 	Disciplina d3("Circuitos Eletricos I", "EEL440", ENG_ELETRICA, 5, 45);
 	disciplinas.push_back(d3);
-	Disciplina d4("Controle Linear I", "EEL570", ENG_AUTOMACAO, 5, 45);
+	Disciplina d4("Controle Linear I", "EEL580", ENG_AUTOMACAO, 5, 45);
 	disciplinas.push_back(d4);
 	/*
 	disciplinas[0].alunosInscritos.push_back(a1);
