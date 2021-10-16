@@ -15,7 +15,8 @@ SRCDIR = src
 OBJS = $(OBJDIR)/main.o\
 	   	$(OBJDIR)/siga.o\
 	   	$(OBJDIR)/disciplina.o\
-		$(OBJDIR)/aluno.o
+		$(OBJDIR)/aluno.o\
+		$(OBJDIR)/database.o
 
 EXEC = bin/siga_app
 

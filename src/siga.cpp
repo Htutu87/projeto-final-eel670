@@ -4,47 +4,13 @@
 // Projeto final
 // Autor: Artur Amaral | DRE: 119057968 | Agosto 2021
 
-// OBS:
-// Ao fim dos métodos de registro, eu passo o objeto em sim como argumento para o push_back.
-// Provavelmente o que é adicionado ao vetor membro é uma cópia do objeto criado aqui. 
-// Tem problema? Ele só será acessado, de qualquer forma. Se der ruim, alterar para passar
-// o endereço de memória (Ao fim das 3 funções de registro - aluno, disciplina, pedido).
+// TODO:
+// -> Tratar a inserção de alunos repetidos;
+// -> Inserir opções para gerenciar as tabelas no banco (Limpar tabela, criar tabela, etc.);
+// -> Carregar dados do banco.
 
 #include "../include/siga.h"
-#include <mysql/mysql.h>
-
-struct connection_details {
-    const char *server, *user, *password, *database;
-};
-
-MYSQL* mysql_connection_setup(struct connection_details mysql_details)
-{
-    MYSQL *connection = mysql_init(NULL);
-
-    if (!mysql_real_connect (connection, mysql_details.server,
-                                            mysql_details.user,
-                                            mysql_details.password,
-                                            mysql_details.database, 0, NULL, 0 ) )
-    {
-        /*Se a conexão com a base de dados falhar, este trecho será executado.*/
-        cout << "Connection error: " << mysql_error(connection) << endl;
-        exit (1);
-    }
-
-    return connection;
-}
-
-MYSQL_RES* mysql_execute_query(MYSQL *connection, const char *sql_query)
-{
-    if (mysql_query (connection, sql_query) )
-    {
-        /*Se um erro ocorrer durante a query...*/
-        cout << "MySQL query error: " << mysql_error(connection) << endl;
-        exit(1);
-    } 
-
-    return mysql_use_result(connection);
-}
+#include "../include/database.h"
 
 
 SIGA::SIGA()
@@ -76,6 +42,9 @@ SIGA::SIGA()
 	disciplinas[0].alunosInscritos.push_back(a3);
 	*/
 	#endif
+
+	carregarDados();
+
 }
 
 SIGA::~SIGA()
@@ -481,16 +450,11 @@ void SIGA::processarPedidos()
 {
 	cout << "---\nPROCESSANDO PEDIDOS:" << endl;
 
-	// AQUI ESTÁ O PROBLEMA, ESTOU CRIANDO ELAS LOCALMENTE.
-
 	Aluno a = Aluno();
 	Aluno & alunoRef = a;
 
 	while(pedidosPendentes.size() != 0)
 	{
-		//recebeDreDevolveAluno(pedidosPendentes.back().DRE, alunoRef);
-		//cout << "ALUNO ENCONTRADO: " << alunoRef.getNome() << endl;
-
 		for (unsigned i = 0; i < alunos.size(); i++)
 			if(alunos[i].getDRE() == pedidosPendentes.back().DRE)
 				alunoRef = alunos[i];
@@ -507,15 +471,52 @@ void SIGA::processarPedidos()
 
 void SIGA::carregarDados()
 {
+	cout << "CARREGANDO DADOS." << endl;
 
+    MYSQL *con;
+    MYSQL_RES *res;
+    MYSQL_ROW row;
+
+    struct connection_details mysqlDB;
+    mysqlDB.server = "localhost";
+    mysqlDB.user = "eel670";
+    mysqlDB.password = "eel670";
+    mysqlDB.database = "siga";
+
+	con = mysql_connection_setup(mysqlDB);
+
+	for (Disciplina disciplina:disciplinas)
+	{
+		string myQuery = "SELECT * FROM siga.";
+
+		myQuery.append(disciplina.getCodigo());
+
+		cout << "EXEC_QUERY: " << myQuery << endl;
+
+		/*
+		res = mysql_execute_query(con, myQuery);
+
+		cout << "Displaying database output:\n" << endl;
+
+		while ((row = mysql_fetch_row(res)) != NULL )
+		{
+			cout << "| " 
+		<< row[0] << " | "
+			<< row[1] << " | "
+			<< row[2] << " | "
+			<< row[3] << " | "
+			<< row[4] << " | " 
+		<< endl << endl;    
+		}*/
+	}
+    //mysql_free_result(res);
+    mysql_close(con);
 }
 
 void SIGA::salvarDados()
 {
-
 	MYSQL *con;
     MYSQL_RES *res;
-    //MYSQL_ROW row;
 
     struct connection_details mysqlDB;
     mysqlDB.server = "localhost";
