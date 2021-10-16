@@ -12,7 +12,11 @@
 class Aluno {
 	
 	public:
+<<<<<<< HEAD
 		Aluno();
+=======
+		Aluno() = default;
+>>>>>>> dev
 		Aluno(string, string, string, curso_t, float, unsigned short);
 		string getNome();
 		string getSobrenome();

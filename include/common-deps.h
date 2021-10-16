@@ -25,6 +25,10 @@
 
 using namespace std;
 
+//-----------------------------
+// Definição de tipos próprios
+//-----------------------------
+
 typedef struct pedido {
 	string DRE;
 	string codigoDisciplina;
@@ -36,5 +40,11 @@ typedef enum enum_curso{
 	ENG_AUTOMACAO,
 	ENG_COMPUTACAO
 } curso_t;
+
+//-----------------------
+// Declarações antecipadas
+//-----------------------
+
+inline void pressEnter();
 
 #endif

@@ -14,7 +14,8 @@ ostream & operator<<(ostream & _cout, Disciplina _d)
 	   	<< setw(8) << _d.getCodigo()
 		<< setw(20) << _d.getCurso()
 		<< setw(10) << _d.getPeriodo()
-		<< setw(10) << _d.getNumVagas() << endl;
+		<< setw(10) << _d.getNumVagas()
+		<< setw(10) << _d.alunosInscritos.size() << endl;
 	return _cout;
 }
 
@@ -64,6 +65,7 @@ Disciplina::Disciplina(string _nome, string _codigo, curso_t _curso, unsigned sh
 	numVagas = _numVagas;
 }
 
+<<<<<<< HEAD
 void Disciplina::inscreverAluno(Aluno _a)
 {
 	cout << "---\nEntrando na funcao inscreverAluno()" << endl;
@@ -73,6 +75,11 @@ void Disciplina::inscreverAluno(Aluno _a)
 	cout << _a;
 	cout << "AlunosInscritos.size(): " << alunosInscritos.size() << endl;
 	cout << "----------" << endl;
+=======
+void Disciplina::inscreverAluno(Aluno & _alunoRef)
+{
+	alunosInscritos.push_back(_alunoRef);
+>>>>>>> dev
 }
 
 string Disciplina::getNome()

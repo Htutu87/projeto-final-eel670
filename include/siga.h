@@ -17,6 +17,7 @@ class SIGA {
 		~SIGA();
 		void listarAlunos();
 		void listarDisciplinas();
+<<<<<<< HEAD
 		void registrarAluno(Aluno);
 		void registrarDisciplina(Disciplina);	
 		void registrarPedido(pedido_t);
@@ -30,6 +31,22 @@ class SIGA {
 		void recebeDreRetornaAluno(string, Aluno*);
 		void recebeCodigoRetornaDisciplina(string, Disciplina*);
 		
+=======
+		void registrarAluno();
+		void registrarDisciplina();	
+		void registrarPedido();	
+		void printarDados();
+		void processarPedidos();
+
+	private:
+		bool alunoExistePorDRE(string);
+		bool disciplinaExistePorCodigo(string);
+		void carregarDados();
+		void salvarDados();
+		void recebeDreDevolveAluno(string, Aluno &);
+		void recebeCodigoDevolveDisciplina(string, Disciplina &);
+
+>>>>>>> dev
 		vector <Aluno> alunos;
 		vector <Disciplina> disciplinas;
 		vector <pedido_t> pedidosPendentes;
