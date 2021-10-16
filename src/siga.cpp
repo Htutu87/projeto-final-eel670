@@ -43,6 +43,11 @@ SIGA::SIGA()
 	#endif
 }
 
+SIGA::~SIGA()
+{
+	salvarDados();
+}
+
 void SIGA::listarAlunos()
 {
 	cout << setw(15) << "NOME"
@@ -506,5 +511,14 @@ void SIGA::carregarDados()
 
 void SIGA::salvarDados()
 {
-	
+	cout << "---\n[SALVANDO DADOS]" << endl;
+	for (Disciplina disciplina:disciplinas)
+	{
+		cout << disciplina.getNome() << endl;
+		for (Aluno aluno:disciplina.alunosInscritos)
+		{
+			cout << "\t" << aluno.getNome() << endl;
+		}
+	}
+	cout << "---" << endl;
 }

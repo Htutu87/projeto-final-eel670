@@ -13,6 +13,7 @@ class SIGA {
 
 	public:
 		SIGA();
+		~SIGA();
 		void listarAlunos();
 		void listarDisciplinas();
 		void registrarAluno();
