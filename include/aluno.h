@@ -12,6 +12,7 @@
 class Aluno {
 	
 	public:
+		Aluno() = default;
 		Aluno(string, string, string, curso_t, float, unsigned short);
 		string getNome();
 		string getSobrenome();

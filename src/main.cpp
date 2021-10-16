@@ -108,14 +108,15 @@ int main()
 				break;
 
 			case 6:
-				cout << "6" << endl;
+				siga.processarPedidos();
 				pressEnter();
 				break;
 
+			// OPERAÇÃO SECRETA, serve apenas para depurar código.
 			case 7:
-				siga.printarDados();
-				pressEnter();
-				break;
+			siga.printarDados();
+			pressEnter();
+			break;
 
 			case 0:
 				executarPrograma = false;

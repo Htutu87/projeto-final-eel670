@@ -18,13 +18,13 @@ SIGA::SIGA()
 	cout << "_DEBUG_ defined." << endl;
 	Aluno a1("Artur", "Amaral", "119057968", ENG_ELETRONICA, 6.2, 5);
 	alunos.push_back(a1);
-	Aluno a2("Bruno", "Ramos", "119057968", ENG_ELETRONICA, 6.2, 5);
+	Aluno a2("Bruno", "Ramos", "119057969", ENG_ELETRONICA, 6.2, 5);
 	alunos.push_back(a2);
-	Aluno a3("Gabriel", "Peroba", "119057968", ENG_AUTOMACAO, 6.2, 5);
+	Aluno a3("Gabriel", "Peroba", "119057970", ENG_AUTOMACAO, 6.2, 5);
 	alunos.push_back(a3);
-	Aluno a4("Carlos", "Eduardo", "119057968", ENG_ELETRICA, 6.2, 5);
+	Aluno a4("Carlos", "Eduardo", "119057971", ENG_ELETRICA, 6.2, 5);
 	alunos.push_back(a4);
-	Aluno a5("Breno", "Miranda", "119057968", ENG_COMPUTACAO, 6.2, 5);
+	Aluno a5("Breno", "Miranda", "119057972", ENG_COMPUTACAO, 6.2, 5);
 	alunos.push_back(a5);
 
 	Disciplina d1("Arquitetura de computadores", "EEL570", ENG_ELETRONICA, 5, 45);
@@ -35,6 +35,11 @@ SIGA::SIGA()
 	disciplinas.push_back(d3);
 	Disciplina d4("Controle Linear I", "EEL570", ENG_AUTOMACAO, 5, 45);
 	disciplinas.push_back(d4);
+	/*
+	disciplinas[0].alunosInscritos.push_back(a1);
+	disciplinas[0].alunosInscritos.push_back(a2);
+	disciplinas[0].alunosInscritos.push_back(a3);
+	*/
 	#endif
 }
 
@@ -59,7 +64,8 @@ void SIGA::listarDisciplinas()
 	   	<< setw(8) << "CODIGO"
 		<< setw(20) << "CURSO"
 		<< setw(10) << "PERIODO"
-	   	<< setw(10) << "VAGAS" << endl;
+	   	<< setw(10) << "VAGAS"
+		<< setw(10) << "INSCRITOS" << endl;
 
 	for (Disciplina disciplina:disciplinas)
 	{
@@ -365,7 +371,6 @@ void SIGA::registrarPedido()
 		}
 	}
 
-
 	cout << "Codigo da disciplina almejada: ";
 	getline(cin, codigo);
 
@@ -412,19 +417,94 @@ bool SIGA::disciplinaExistePorCodigo(string _codigo)
 }
 
 // Método para fins de depuração
+
 void SIGA::printarDados()
 {
+	cout << "---- SIGA (Estado atual) ----" << endl;
+	cout << "----------------------------------------------------------" << endl;
 	cout << "ALUNOS REGISTRADOS: " << endl;
-	for (Aluno aluno:alunos)
-		cout << aluno;
+	listarAlunos();
+	cout << "----------------------------------------------------------" << endl;
 	cout << "DISCIPLINAS REGISTRADAS: " << endl;
-	for (Disciplina disciplina:disciplinas)
-		cout << disciplina;
+	listarDisciplinas();
+	cout << "----------------------------------------------------------" << endl;
 	cout << "PEDIDOS DE INSCRICAO: " << endl;
-	for (pedido_t pedido:pedidosPendentes)
+	for (pedido_t & pedido:pedidosPendentes)
 	{
 		cout << "\tDRE " << pedido.DRE << " pediu disciplina " 
 		<< pedido.codigoDisciplina << endl;
+	}	
+	cout << "----------------------------------------------------------" << endl;
+}
+
+
+void SIGA::recebeDreDevolveAluno(string _DRE, Aluno & alunoRef)
+{
+	for (unsigned i=0; i < alunos.size(); i++)
+	{
+		if(alunos[i].getDRE() == _DRE)
+		{
+			alunoRef = alunos[i];
+			cout << "[DEBUG] Aluno encontrado por DRE (i =" << i << ")." << endl;
+		}
 	}
+}
+
+/*
+void SIGA::recebeCodigoDevolveDisciplina(string _codigo, Disciplina & disciplinaRef)
+{
+	for (unsigned i=0; i < disciplinas.size(); i++)
+	{
+		if(disciplinas[i].getCodigo() == _codigo)
+		{
+			Aluno a = Aluno();
+			Aluno & aRef = a;
+
+			disciplinaRef = disciplinas[i];
+			disciplinaRef.inscreverAluno(aRef);
+			cout << "[DEBUG] &disciplina (funcaoInterna()): ";
+			cout << &disciplinas[i] << endl;
+			cout << disciplinas[i];
+			cout << "[DEBUG] Disciplina encontrada por codigo." << endl;
+		}
+	}
+	cout << "[D] DEBUG" << endl;
+}*/
+
+void SIGA::processarPedidos()
+{
+	cout << "---\nPROCESSANDO PEDIDOS:" << endl;
+
+	// AQUI ESTÁ O PROBLEMA, ESTOU CRIANDO ELAS LOCALMENTE.
+
+	Aluno a = Aluno();
+	Aluno & alunoRef = a;
+
+	while(pedidosPendentes.size() != 0)
+	{
+		//recebeDreDevolveAluno(pedidosPendentes.back().DRE, alunoRef);
+		//cout << "ALUNO ENCONTRADO: " << alunoRef.getNome() << endl;
+
+		for (unsigned i = 0; i < alunos.size(); i++)
+			if(alunos[i].getDRE() == pedidosPendentes.back().DRE)
+				alunoRef = alunos[i];
+
+		for (unsigned i = 0; i < disciplinas.size(); i++)
+			if (disciplinas[i].getCodigo() == pedidosPendentes.back().codigoDisciplina)
+				disciplinas[i].alunosInscritos.push_back(alunoRef);
+
+		pedidosPendentes.pop_back();
+	}
+
+	cout << "---" << endl;
+}
+
+void SIGA::carregarDados()
+{
+
+}
+
+void SIGA::salvarDados()
+{
 	
 }

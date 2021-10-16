@@ -17,12 +17,18 @@ class SIGA {
 		void listarDisciplinas();
 		void registrarAluno();
 		void registrarDisciplina();	
-		void registrarPedido();
-		bool alunoExistePorDRE(string);
-		bool disciplinaExistePorCodigo(string);	
+		void registrarPedido();	
 		void printarDados();
+		void processarPedidos();
 
 	private:
+		bool alunoExistePorDRE(string);
+		bool disciplinaExistePorCodigo(string);
+		void carregarDados();
+		void salvarDados();
+		void recebeDreDevolveAluno(string, Aluno &);
+		void recebeCodigoDevolveDisciplina(string, Disciplina &);
+
 		vector <Aluno> alunos;
 		vector <Disciplina> disciplinas;
 		vector <pedido_t> pedidosPendentes;
