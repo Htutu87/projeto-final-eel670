@@ -493,30 +493,25 @@ void SIGA::carregarDados()
 
 		cout << "EXEC_QUERY: " << myQuery << endl;
 
-		/*
-		res = mysql_execute_query(con, myQuery);
+		res = mysql_execute_query(con, myQuery.c_str());
 
 		cout << "Displaying database output:\n" << endl;
 
 		while ((row = mysql_fetch_row(res)) != NULL )
 		{
-			cout << "| " 
-		<< row[0] << " | "
-			<< row[1] << " | "
-			<< row[2] << " | "
-			<< row[3] << " | "
-			<< row[4] << " | " 
-		<< endl << endl;    
-		}*/
+			for (int i = 0; i < NUM_ATTR_ALUNO; i++)
+				cout << "| " << row[i] << " | ";
+			cout << endl;
+		}
+		cout << endl;
 	}
-    //mysql_free_result(res);
+    mysql_free_result(res);
     mysql_close(con);
 }
 
 void SIGA::salvarDados()
 {
 	MYSQL *con;
-    MYSQL_RES *res;
 
     struct connection_details mysqlDB;
     mysqlDB.server = "localhost";
@@ -552,10 +547,10 @@ void SIGA::salvarDados()
 			myQuery.append(");");
 
 			cout << "EXEC_QUERY: " << myQuery << endl;
-			res = mysql_execute_query(con, myQuery.c_str());
+			mysql_execute_query(con, myQuery.c_str());
+		
 		}
 	}
 	cout << "---" << endl;
-	mysql_free_result(res);
     mysql_close(con);
 }

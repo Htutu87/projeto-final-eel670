@@ -9,6 +9,8 @@
 
 #include "exceptions.h" 
 
+#define NUM_ATTR_ALUNO 6
+
 class Aluno {
 	
 	public:
