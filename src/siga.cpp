@@ -4,17 +4,17 @@
 // Projeto final
 // Autor: Artur Amaral | DRE: 119057968 | Agosto 2021
 
-// TODO:
-// -> Tratar a inserção de alunos repetidos;
-
 #include "../include/siga.h"
 #include "../include/database.h"
-
 
 SIGA::SIGA()
 {
 	#ifdef _DEBUG_
 	cout << "_DEBUG_ defined." << endl;
+
+	/*
+	Inicialização de uma base de dados padrão, para depuração.
+
 	Aluno a1("Artur", "Amaral", "119057968", ENG_ELETRONICA, 6.2, 5);
 	alunos.push_back(a1);
 	Aluno a2("Bruno", "Ramos", "119057969", ENG_ELETRONICA, 6.2, 5);
@@ -26,6 +26,8 @@ SIGA::SIGA()
 	Aluno a5("Breno", "Miranda", "119057972", ENG_COMPUTACAO, 6.2, 5);
 	alunos.push_back(a5);
 
+	*/
+
 	Disciplina d1("Arquitetura de computadores", "EEL570", ENG_ELETRONICA, 5, 45);
 	disciplinas.push_back(d1);
 	Disciplina d2("Algoritmos e estruturas de dados", "EEL480", ENG_COMPUTACAO, 5, 45);
@@ -34,6 +36,7 @@ SIGA::SIGA()
 	disciplinas.push_back(d3);
 	Disciplina d4("Controle Linear I", "EEL580", ENG_AUTOMACAO, 5, 45);
 	disciplinas.push_back(d4);
+	
 	/*
 	disciplinas[0].alunosInscritos.push_back(a1);
 	disciplinas[0].alunosInscritos.push_back(a2);
@@ -452,7 +455,7 @@ void SIGA::printarDados()
 
 void SIGA::processarPedidos()
 {
-	cout << "---\nPROCESSANDO PEDIDOS:" << endl;
+	cout << "---\nPROCESSANDO PEDIDOS." << endl;
 
 	Aluno a = Aluno();
 	Aluno & alunoRef = a;
@@ -574,7 +577,9 @@ void SIGA::limparBaseDeDados()
 	{
 		string myQuery = "DELETE FROM siga.";
 		myQuery.append(disciplina.getCodigo());
+		#ifdef _DEBUG_
 		cout << "EXEC_QUERY: " << myQuery << endl;
+		#endif
 		mysql_execute_query(con, myQuery.c_str());
 	}
 	mysql_close(con);

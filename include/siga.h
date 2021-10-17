@@ -30,8 +30,6 @@ class SIGA {
 		bool disciplinaExistePorCodigo(string);
 		void carregarDados();
 		void salvarDados();
-		void recebeDreDevolveAluno(string, Aluno &);
-		void recebeCodigoDevolveDisciplina(string, Disciplina &);
 
 		vector <Aluno> alunos;
 		vector <Disciplina> disciplinas;
