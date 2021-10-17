@@ -21,6 +21,9 @@ class SIGA {
 		void registrarPedido();	
 		void printarDados();
 		void processarPedidos();
+		void limparBaseDeDados();
+		void criarTabela(string);
+		void deletarTabela(string);
 
 	private:
 		bool alunoExistePorDRE(string);

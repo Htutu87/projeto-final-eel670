@@ -112,11 +112,15 @@ int main()
 				pressEnter();
 				break;
 
-			// OPERAÇÃO SECRETA, serve apenas para depurar código.
+			// OPERAÇÕES SECRETAS.
 			case 7:
-			siga.printarDados();
-			pressEnter();
-			break;
+				siga.printarDados();
+				pressEnter();
+				break;
+
+			case 8:
+				siga.limparBaseDeDados();
+				break;
 
 			case 0:
 				executarPrograma = false;

@@ -6,8 +6,6 @@
 
 // TODO:
 // -> Tratar a inserção de alunos repetidos;
-// -> Inserir opções para gerenciar as tabelas no banco (Limpar tabela, criar tabela, etc.);
-// -> Carregar dados do banco.
 
 #include "../include/siga.h"
 #include "../include/database.h"
@@ -124,6 +122,12 @@ void SIGA::registrarAluno()
 			cout << "DRE contem caracteres nao numericos. " << endl;
 			return;
 		}
+	}
+
+	if (alunoExistePorDRE(DRE))
+	{
+		cout << "Este DRE ja existe no sistema." << endl;
+		return;
 	}
 
 	cout << "Curso: " << endl;
@@ -333,8 +337,8 @@ void SIGA::registrarDisciplina()
 	}
 
 	Disciplina d(nome, codigo, curso, periodoInt, numVagasInt);
-	
 	disciplinas.push_back(d);
+	criarTabela(codigo);
 }
 
 void SIGA::registrarPedido()
@@ -553,4 +557,67 @@ void SIGA::salvarDados()
 	}
 	cout << "---" << endl;
     mysql_close(con);
+}
+
+void SIGA::limparBaseDeDados()
+{
+	MYSQL *con;
+	struct connection_details mysqlDB;
+    mysqlDB.server = "localhost";
+    mysqlDB.user = "eel670";
+    mysqlDB.password = "eel670";
+    mysqlDB.database = "siga";
+
+	con = mysql_connection_setup(mysqlDB);
+
+	for (Disciplina disciplina:disciplinas)
+	{
+		string myQuery = "DELETE FROM siga.";
+		myQuery.append(disciplina.getCodigo());
+		cout << "EXEC_QUERY: " << myQuery << endl;
+		mysql_execute_query(con, myQuery.c_str());
+	}
+	mysql_close(con);
+}
+
+void SIGA::criarTabela(string _codigo)
+{
+	MYSQL *con;
+	struct connection_details mysqlDB;
+    mysqlDB.server = "localhost";
+    mysqlDB.user = "eel670";
+    mysqlDB.password = "eel670";
+    mysqlDB.database = "siga";
+
+	con = mysql_connection_setup(mysqlDB);
+
+	string myQuery = "CREATE TABLE " + _codigo + 
+					" (nome varchar(20), " +
+					"sobrenome varchar(30), " +
+					"DRE varchar(9), " +
+					"curso tinyint unsigned, " +
+					"CRA float(3,2), " +
+					"periodo tinyint unsigned);";
+
+	mysql_execute_query(con, myQuery.c_str());	
+
+	mysql_close(con);
+}
+
+void SIGA::deletarTabela(string _codigo)
+{
+	MYSQL *con;
+	struct connection_details mysqlDB;
+    mysqlDB.server = "localhost";
+    mysqlDB.user = "eel670";
+    mysqlDB.password = "eel670";
+    mysqlDB.database = "siga";
+
+	con = mysql_connection_setup(mysqlDB);
+
+	string myQuery = "DROP TABLE " + _codigo;
+					
+	mysql_execute_query(con, myQuery.c_str());	
+
+	mysql_close(con);
 }
